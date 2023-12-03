@@ -13,7 +13,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     <script type="text/javascript" src="js/imprimir.js"></script>
-    
+
 </head>
 
 <body class="body">
@@ -21,16 +21,25 @@
     <div class="content">
 
         <div style="padding-top: 10px; display: flex;" class="doc">
-            <div style="margin-right: auto; padding-left: 10px;">
+            <div style="padding-left: 10px;">
                 <a id="btnSendWa" href="" style="align-items: start;" onclick="openWhatsApp()" class="btn">Mandar por Whatsapp</a>
             </div>
             <div style="padding-right: 10px;">
                 <a id="btnSave" href="#" style="background-color: #198754;" onclick="savePDF()" class="btn">Guardar</a>
                 <a id="btnPrint" href="#" style="background-color: #0d6efd;" onclick="printPDF()" class="btn">Imprimir</a>
+
+<!-- Definir el elemento dialog -->
+<dialog id="dialogoArchivo">
+    <form method="dialog">
+        <input type="file" id="inputArchivo">
+        <button onclick="cerrarDialogo()">Cerrar</button>
+    </form>
+</dialog>
             </div>
         </div>
-        
 
+        
+            
         <div  class="doc">
             
             <div   class="card" id="card">
@@ -41,7 +50,7 @@
 
                         <div class="logo">
                         <!--https://drive.google.com/uc?export=download&id=1qqu8zDpTILtZFYBVfcHQFPLbJmyPSiJz-->
-                        <img alt="" src="https://drive.google.com/uc?export=download&id=1G-A5DmFWTBOs9CT7Gfb_oAy502BwkQUO" id="logo">
+                        <img id="imagenDescargada" src="" >
                         </div>
 
                         <div class="datos_empresa">
@@ -164,6 +173,17 @@
 
         </div>
 
+
+        <div style="padding-top: 10px;" class="doc">
+            <div style="padding-left: 10px;">
+                <a href="#" style="background-color: #0d6efd;" href="#" style="background-color: #0d6efd;" onclick="descargarDesdePrompt()" class="btn">Descargar Imagen</a>
+            </div>
+            <div style="padding-right: 10px;">
+                <input type="file" id="inputImagen" style="padding: 7.20px 20px;" class="btn" accept="image/*">
+                <a href="#" style="background-color: #0d6efd;" onclick="cargarImagen()" class="btn">Cargar Imagen</a>
+
+            </div>
+        </div>
     </div>
 
     <script src="js/recibe_datos_doc_1.js"></script>

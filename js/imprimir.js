@@ -121,8 +121,97 @@ function openWhatsApp() {
 
 
 
+function descargarDesdePrompt() {
+    // Pide al usuario que ingrese el enlace mediante un cuadro de diálogo prompt
+    var enlace = "https://drive.google.com/file/d/1G-A5DmFWTBOs9CT7Gfb_oAy502BwkQUO/view?usp=sharing";
 
+    if (enlace) {
+        // Extrae el ID del archivo desde el enlace proporcionado
+        var fileId = enlace.match(/[-\w]{25,}/);
 
+        if (fileId) {
+            // Construye el enlace de descarga
+            var downloadLink = 'https://drive.google.com/uc?export=download&id=' + fileId[0];
 
+            // Crea un elemento <a> para el enlace de descarga
+            var link = document.createElement('a');
+            link.href = downloadLink;
 
+            // Agrega el elemento <a> al documento
+            document.body.appendChild(link);
 
+            // Simula un clic en el enlace para iniciar la descarga
+            link.click();
+
+            // Elimina el elemento <a> después de iniciar la descarga
+            document.body.removeChild(link);
+
+            // Almacena el Blob de la imagen descargada
+            fetch(downloadLink)
+                .then(response => response.blob())
+                .then(blob => {
+                    imagenDescargadaBlob = blob;
+                })
+                .catch(error => console.error('Error al cargar la imagen:', error));
+
+            // Muestra el input de tipo file para que el usuario elija la imagen descargada
+            document.getElementById('inputImagen').style.display = 'block';
+        } else {
+            alert('El enlace proporcionado no es válido. Asegúrate de que sea un enlace compartido de Google Drive.');
+        }
+    } else {
+        alert('No se proporcionó ningún enlace. La descarga ha sido cancelada.');
+    }
+}
+
+function cargarImagen() {
+    // Obtener el elemento de input de tipo file
+    var inputImagen = document.getElementById('inputImagen');
+
+    // Verificar si se seleccionó un archivo
+    if (inputImagen.files && inputImagen.files[0]) {
+        var reader = new FileReader();
+
+        // Configurar la función de carga
+        reader.onload = function (e) {
+            // Obtener el elemento de imagen
+            var imagenDescargada = document.getElementById('imagenDescargada');
+
+            // Establecer la URL base64 como src de la imagen
+            imagenDescargada.src = e.target.result;
+        };
+
+        // Leer el contenido del archivo como una URL base64
+        reader.readAsDataURL(inputImagen.files[0]);
+    } else {
+        alert('Por favor, selecciona una imagen antes de hacer clic en "Cargar Imagen".');
+    }
+}
+
+// Obtén el elemento dialog
+var dialogoArchivo = document.getElementById('dialogoArchivo');
+        
+function abrirDialogo() {
+    // Abre el diálogo
+    dialogoArchivo.showModal();
+
+    // Maneja el evento de cambio (cuando el usuario selecciona un archivo)
+    var inputArchivo = document.getElementById('inputArchivo');
+    inputArchivo.addEventListener('change', function() {
+        // Accede al archivo seleccionado (si existe)
+        var archivo = inputArchivo.files[0];
+
+        if (archivo) {
+            // Aquí puedes realizar acciones con el archivo, si es necesario
+            console.log('Archivo seleccionado:', archivo);
+
+            // También puedes cerrar el diálogo si es necesario
+            // dialogoArchivo.close();
+        }
+    });
+}
+
+function cerrarDialogo() {
+    // Cierra el diálogo
+    dialogoArchivo.close();
+}
