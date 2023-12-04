@@ -55,16 +55,23 @@ function savePDF() {
             method: 'POST',
             body: pdfData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud.');
+            }
+            return response.json();
+        })
         .then(data => {
-            console.log(data);
-            // Puedes mostrar un mensaje de éxito al usuario o realizar otras acciones necesarias
+            // Muestra un mensaje de éxito al usuario o realiza otras acciones necesarias
+            console.log('Archivo guardado con éxito:', data);
         })
         .catch(error => {
+            // Maneja errores y proporciona feedback al usuario
             console.error('Error al guardar el archivo:', error);
         });
     });
 }
+
 
 
 
