@@ -32,32 +32,40 @@
 // }
 
 function savePDF() {
-    // Configura las opciones de html2canvas para una mayor resolución
     var options = {
-        scale: 3, // Ajusta según sea necesario para mejorar la calidad
-        useCORS: true // Habilita el uso de CORS para imágenes externas
+        scale: 3,
+        useCORS: true
     };
 
-    // Captura el contenido del div con las opciones especificadas
     html2canvas(document.getElementById('divImprimir'), options).then(function (canvas) {
-        // Crea una nueva instancia de jsPDF
         var pdf = new jsPDF();
-
-        // Calcula las dimensiones de la imagen en relación con la página
         var imgWidth = pdf.internal.pageSize.getWidth();
         var imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-        // Agrega la imagen al PDF y establece la posición en (0, 0)
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
-        
+
         var currentDate = new Date().toLocaleDateString().replace(/\//g, '-');
+        var filename = 'recibo_' + currentDate + '.pdf';
 
-        var filename = 'recibo_' + currentDate + '.pdf'
+        // Convierte el PDF a una cadena de bytes (arraybuffer)
+        var pdfData = pdf.output('arraybuffer');
 
-        // Guarda el PDF con un nombre específico
-        pdf.save(filename);
+        // Realiza una solicitud POST al servidor para guardar el PDF
+        fetch('/guardarPdf.php', {
+            method: 'POST',
+            body: pdfData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Puedes mostrar un mensaje de éxito al usuario o realizar otras acciones necesarias
+        })
+        .catch(error => {
+            console.error('Error al guardar el archivo:', error);
+        });
     });
 }
+
 
 
 function printPDF() {
