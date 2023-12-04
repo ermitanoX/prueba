@@ -20,21 +20,13 @@
     
     <div class="content">
 
-        <div style="padding-top: 10px; display: flex;" class="doc">
+        <div style="padding-top: 10px;display: flex;justify-content: space-around;" class="doc">
             <div style="padding-left: 10px;">
                 <a id="btnSendWa" href="" style="align-items: start;" onclick="openWhatsApp()" class="btn">Mandar por Whatsapp</a>
             </div>
             <div style="padding-right: 10px;">
                 <a id="btnSave" href="#" style="background-color: #198754;" onclick="savePDF()" class="btn">Guardar</a>
                 <a id="btnPrint" href="#" style="background-color: #0d6efd;" onclick="printPDF()" class="btn">Imprimir</a>
-
-<!-- Definir el elemento dialog -->
-<dialog id="dialogoArchivo">
-    <form method="dialog">
-        <input type="file" id="inputArchivo">
-        <button onclick="cerrarDialogo()">Cerrar</button>
-    </form>
-</dialog>
             </div>
         </div>
 
