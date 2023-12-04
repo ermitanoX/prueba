@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Directorio en tu servidor donde deseas guardar los archivos
-    $directorioDestino = '/ruta/a/tu/directorio/recibos/';
+    $directorioDestino = 'recibos/';
 
     // Verifica que el directorio exista o créalo si no existe
     if (!is_dir($directorioDestino)) {
