@@ -51,7 +51,7 @@ function savePDF() {
         var pdfData = pdf.output('arraybuffer');
 
         // Realiza una solicitud POST al servidor para guardar el PDF
-        fetch('/guardarPdf.php', {
+        fetch('guardarPdf.php', {
             method: 'POST',
             body: pdfData
         })
